@@ -1,7 +1,6 @@
 @extends('base')
 
-@section('content')
-
+@section
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -415,5 +414,4 @@
     </script>
 </body>
 </html>
-
 @endsection
