@@ -49,22 +49,26 @@
             <!-- Desktop Navigation (visible on medium screens and up) -->
             <div class="hidden md:flex space-x-8">
                 <a href="#" class="text-gray-700 hover:text-primary transition">Home</a>
+                <!-- Show these only to guests -->
+                @guest
                 <a href="#" class="text-gray-700 hover:text-primary transition">Doctors</a>
                 <a href="#" class="text-gray-700 hover:text-primary transition">Services</a>
                 <a href="#" class="text-gray-700 hover:text-primary transition">About</a>
                 <a href="#" class="text-gray-700 hover:text-primary transition">Contact</a>
+                @endguest
             </div>
 
             <!-- Auth Buttons (visible when not logged in) -->
-
+            @guest
             <div id="authButtons" class="hidden md:flex space-x-4">
                 <a href="{{ route('login') }}" class="bg-white text-primary border border-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition">Sign In</a>
                 <a href="{{ route('register') }}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primaryDark transition">Sign Up</a>
             </div>
-        
+            @endguest
 
             <!-- Profile Dropdown (visible when logged in) -->
-            <div id="profileDropdownContainer" class="hidden relative">
+            @auth
+            <div id="profileDropdownContainer" class="hidden md:block relative">
                 <button id="profileDropdownButton" class="flex items-center text-gray-700 hover:text-primary focus:outline-none">
                     <i class="fas fa-user-circle text-2xl"></i>
                 </button>
@@ -74,61 +78,130 @@
                     <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a>
                 </div>
             </div>
+            @endauth
 
-            <!-- Mobile menu button -->
+            <!-- Mobile menu button (only show to logged in users on mobile) -->
+            @auth
             <button id="mobileMenuButton" class="md:hidden text-gray-700 hover:text-primary focus:outline-none">
                 <i class="fas fa-bars text-xl"></i>
             </button>
+            @endauth
+
+            <!-- For guests on mobile, show auth buttons -->
+            @guest
+            <div class="md:hidden flex space-x-2">
+                <a href="{{ route('login') }}" class="bg-white text-primary border border-primary px-3 py-1 rounded-lg hover:bg-primary hover:text-white transition text-sm">Sign In</a>
+                <a href="{{ route('register') }}" class="bg-primary text-white px-3 py-1 rounded-lg hover:bg-primaryDark transition text-sm">Sign Up</a>
+            </div>
+            @endguest
         </div>
     </header>
 
-    <!-- Mobile Sidebar -->
-    <div class="sidebar fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-40 md:hidden">
-        <div class="p-4 border-b">
-            <div class="flex items-center justify-between">
+    <div class="flex flex-1">
+        <!-- Sidebar for large screens (always visible for logged in users) -->
+        @auth
+        <div class="sidebar hidden md:block md:relative md:w-64 bg-white shadow-lg z-30">
+            <div class="p-4 border-b">
                 <div class="flex items-center">
                     <i class="fas fa-stethoscope text-primary text-2xl mr-2"></i>
                     <span class="text-xl font-bold text-primary">MedBook</span>
                 </div>
-                <button id="closeSidebar" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times"></i>
-                </button>
             </div>
-        </div>
-        <nav class="p-4 overflow-y-auto" style="height: calc(100% - 80px);">
-            <ul class="space-y-2">
-                <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-home mr-2"></i>Dashboard</a></li>
-                <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-calendar-check mr-2"></i>Appointments</a></li>
-                <li id="doctorsMenuItem" class="hidden"><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-user-md mr-2"></i>Doctors</a></li>
-                <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-prescription mr-2"></i>Prescriptions</a></li>
-                <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-file-medical mr-2"></i>Records</a></li>
-                <li class="relative">
-                    <button id="profileSubmenuButton" class="w-full text-left py-2 px-4 text-gray-700 hover:bg-gray-100 rounded flex justify-between items-center">
-                        <span><i class="fas fa-user mr-2"></i>Profile</span>
-                        <i class="fas fa-chevron-down text-xs"></i>
-                    </button>
-                    <ul id="profileSubmenu" class="pl-6 mt-1 hidden">
-                        <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded">View Profile</a></li>
-                        <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded">Edit Profile</a></li>
-                        <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded">Change Password</a></li>
-                    </ul>
-                </li>
-                <li id="statisticsMenuItem" class="hidden"><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-chart-line mr-2"></i>Statistics</a></li>
-                <li id="patientsMenuItem" class="hidden"><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-users mr-2"></i>Patients</a></li>
-                <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-concierge-bell mr-2"></i>Services</a></li>
-                <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-info-circle mr-2"></i>About</a></li>
-                <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-phone mr-2"></i>Contact</a></li>
-                <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a></li>
-            </ul>
-        </nav>
-    </div>
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden md:hidden"></div>
+            <nav class="p-4 overflow-y-auto" style="height: calc(100vh - 80px);">
+                <ul class="space-y-2">
+                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-home mr-2"></i>Dashboard</a></li>
+                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-calendar-check mr-2"></i>Appointments</a></li>
 
-    <!-- Main Content Area -->
-    <main class="flex-grow container mx-auto px-4 py-8">
-        <!-- Content block that can be overridden by extending templates -->
-        @yield('content')
-    </main>
+                    <!-- Doctor-only menu items -->
+                    @if(auth()->user()->role === 'doctor')
+                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-user-md mr-2"></i>Doctors</a></li>
+                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-chart-line mr-2"></i>Statistics</a></li>
+                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-users mr-2"></i>Patients</a></li>
+                    @endif
+
+                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-prescription mr-2"></i>Prescriptions</a></li>
+                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-file-medical mr-2"></i>Records</a></li>
+                    <li class="relative">
+                        <button id="desktopProfileSubmenuButton" class="w-full text-left py-2 px-4 text-gray-700 hover:bg-gray-100 rounded flex justify-between items-center">
+                            <span><i class="fas fa-user mr-2"></i>Profile</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <ul id="desktopProfileSubmenu" class="pl-6 mt-1 hidden">
+                            <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded">View Profile</a></li>
+                            <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded">Edit Profile</a></li>
+                            <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded">Change Password</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+        @endauth
+
+        <!-- Mobile Sidebar -->
+        @auth
+        <div class="sidebar fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-40 md:hidden">
+            <div class="p-4 border-b">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <i class="fas fa-stethoscope text-primary text-2xl mr-2"></i>
+                        <span class="text-xl font-bold text-primary">MedBook</span>
+                    </div>
+                    <button id="closeSidebar" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <nav class="p-4 overflow-y-auto" style="height: calc(100% - 80px);">
+                <ul class="space-y-2">
+                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-home mr-2"></i>Dashboard</a></li>
+                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-calendar-check mr-2"></i>Appointments</a></li>
+
+                    <!-- Doctor-only menu items -->
+                    @if(auth()->user()->role === 'doctor')
+                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-user-md mr-2"></i>Doctors</a></li>
+                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-chart-line mr-2"></i>Statistics</a></li>
+                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-users mr-2"></i>Patients</a></li>
+                    @endif
+
+                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-prescription mr-2"></i>Prescriptions</a></li>
+                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-file-medical mr-2"></i>Records</a></li>
+                    <li class="relative">
+                        <button id="profileSubmenuButton" class="w-full text-left py-2 px-4 text-gray-700 hover:bg-gray-100 rounded flex justify-between items-center">
+                            <span><i class="fas fa-user mr-2"></i>Profile</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <ul id="profileSubmenu" class="pl-6 mt-1 hidden">
+                            <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded">View Profile</a></li>
+                            <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded">Edit Profile</a></li>
+                            <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded">Change Password</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden md:hidden"></div>
+        @endauth
+
+        <!-- Main Content Area -->
+        <main class="flex-grow container mx-auto px-4 py-8 @auth md:ml-64 @endauth">
+            <!-- Content block that can be overridden by extending templates -->
+            @yield('content')
+
+            <!-- Default content if not overridden -->
+            <div id="defaultContent" class="text-center">
+                
+                <!-- Show call to action for guests -->
+                @guest
+                <div class="mt-8 flex justify-center space-x-4">
+                    <a href="{{ route('login') }}" class="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primaryDark transition">Sign In</a>
+                    <a href="{{ route('register') }}" class="bg-white text-primary border border-primary px-6 py-3 rounded-lg hover:bg-primary hover:text-white transition">Sign Up</a>
+                </div>
+                @endguest
+            </div>
+        </main>
+    </div>
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-12 mt-auto">
@@ -211,9 +284,8 @@
             const profileDropdown = document.getElementById('profileDropdown');
             const profileSubmenuButton = document.getElementById('profileSubmenuButton');
             const profileSubmenu = document.getElementById('profileSubmenu');
-            const doctorsMenuItem = document.getElementById('doctorsMenuItem');
-            const statisticsMenuItem = document.getElementById('statisticsMenuItem');
-            const patientsMenuItem = document.getElementById('patientsMenuItem');
+            const desktopProfileSubmenuButton = document.getElementById('desktopProfileSubmenuButton');
+            const desktopProfileSubmenu = document.getElementById('desktopProfileSubmenu');
             const defaultContent = document.getElementById('defaultContent');
 
             // Check if content has been provided by extending template
@@ -224,52 +296,62 @@
 
             // Set initial UI state based on login status
             if (isLoggedIn) {
-                authButtons.classList.add('hidden');
-                profileDropdownContainer.classList.remove('hidden');
-
-                // Show/hide menu items based on user role
-                if (userRole === 'doctor') {
-                    doctorsMenuItem.classList.remove('hidden');
-                    statisticsMenuItem.classList.remove('hidden');
-                    patientsMenuItem.classList.remove('hidden');
-                }
+                if (authButtons) authButtons.classList.add('hidden');
+                if (profileDropdownContainer) profileDropdownContainer.classList.remove('hidden');
             } else {
-                authButtons.classList.remove('hidden');
-                profileDropdownContainer.classList.add('hidden');
+                if (authButtons) authButtons.classList.remove('hidden');
+                if (profileDropdownContainer) profileDropdownContainer.classList.add('hidden');
             }
 
             // Mobile sidebar toggle
-            mobileMenuButton.addEventListener('click', function() {
-                sidebar.classList.add('open');
-                sidebarOverlay.classList.remove('hidden');
-            });
+            if (mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', function() {
+                    document.querySelector('.sidebar.fixed').classList.add('open');
+                    sidebarOverlay.classList.remove('hidden');
+                });
+            }
 
-            closeSidebar.addEventListener('click', function() {
-                sidebar.classList.remove('open');
-                sidebarOverlay.classList.add('hidden');
-            });
+            if (closeSidebar) {
+                closeSidebar.addEventListener('click', function() {
+                    document.querySelector('.sidebar.fixed').classList.remove('open');
+                    sidebarOverlay.classList.add('hidden');
+                });
+            }
 
-            sidebarOverlay.addEventListener('click', function() {
-                sidebar.classList.remove('open');
-                sidebarOverlay.classList.add('hidden');
-            });
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', function() {
+                    document.querySelector('.sidebar.fixed').classList.remove('open');
+                    sidebarOverlay.classList.add('hidden');
+                });
+            }
 
             // Profile dropdown toggle
-            profileDropdownButton.addEventListener('click', function() {
-                profileDropdown.classList.toggle('hidden');
-            });
+            if (profileDropdownButton) {
+                profileDropdownButton.addEventListener('click', function() {
+                    profileDropdown.classList.toggle('hidden');
+                });
+            }
 
             // Close dropdown when clicking outside
             document.addEventListener('click', function(event) {
-                if (!profileDropdownContainer.contains(event.target)) {
-                    profileDropdown.classList.add('hidden');
+                if (profileDropdownContainer && !profileDropdownContainer.contains(event.target)) {
+                    if (profileDropdown) profileDropdown.classList.add('hidden');
                 }
             });
 
-            // Profile submenu toggle in sidebar
-            profileSubmenuButton.addEventListener('click', function() {
-                profileSubmenu.classList.toggle('hidden');
-            });
+            // Profile submenu toggle in mobile sidebar
+            if (profileSubmenuButton) {
+                profileSubmenuButton.addEventListener('click', function() {
+                    profileSubmenu.classList.toggle('hidden');
+                });
+            }
+
+            // Profile submenu toggle in desktop sidebar
+            if (desktopProfileSubmenuButton) {
+                desktopProfileSubmenuButton.addEventListener('click', function() {
+                    desktopProfileSubmenu.classList.toggle('hidden');
+                });
+            }
         });
     </script>
 </body>
