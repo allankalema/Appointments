@@ -56,10 +56,12 @@
             </div>
 
             <!-- Auth Buttons (visible when not logged in) -->
+
             <div id="authButtons" class="hidden md:flex space-x-4">
                 <a href="{{ route('login') }}" class="bg-white text-primary border border-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition">Sign In</a>
                 <a href="{{ route('register') }}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primaryDark transition">Sign Up</a>
             </div>
+        
 
             <!-- Profile Dropdown (visible when logged in) -->
             <div id="profileDropdownContainer" class="hidden relative">
