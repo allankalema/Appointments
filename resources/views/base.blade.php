@@ -87,13 +87,7 @@
             </button>
             @endauth
 
-            <!-- For guests on mobile, show auth buttons -->
-            @guest
-            <div class="md:hidden flex space-x-2">
-                <a href="{{ route('login') }}" class="bg-white text-primary border border-primary px-3 py-1 rounded-lg hover:bg-primary hover:text-white transition text-sm">Sign In</a>
-                <a href="{{ route('register') }}" class="bg-primary text-white px-3 py-1 rounded-lg hover:bg-primaryDark transition text-sm">Sign Up</a>
-            </div>
-            @endguest
+    
         </div>
     </header>
 
@@ -189,16 +183,7 @@
             <!-- Content block that can be overridden by extending templates -->
             @yield('content')
 
-            <!-- Default content if not overridden -->
-            <div id="defaultContent" class="text-center">
-                
-                <!-- Show call to action for guests -->
-                @guest
-                <div class="mt-8 flex justify-center space-x-4">
-                    <a href="{{ route('login') }}" class="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primaryDark transition">Sign In</a>
-                    <a href="{{ route('register') }}" class="bg-white text-primary border border-primary px-6 py-3 rounded-lg hover:bg-primary hover:text-white transition">Sign Up</a>
-                </div>
-                @endguest
+
             </div>
         </main>
     </div>
