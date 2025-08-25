@@ -1,6 +1,3 @@
-@extends('base')
-
-@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -137,10 +134,10 @@
         <!-- User Profile -->
         <div class="p-5 border-b border-primaryLight flex items-center">
             <div class="w-12 h-12 rounded-full bg-white text-primary flex items-center justify-center font-bold text-lg">
-                {{ substr(auth()->user()->first_name, 0, 1) }}{{ substr(auth()->user()->last_name, 0, 1) }}
+                JS
             </div>
             <div class="ml-3">
-                <p class="font-semibold">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</p>
+                <p class="font-semibold">John Smith</p>
                 <p class="text-xs text-blue-100">Patient</p>
             </div>
         </div>
@@ -175,7 +172,7 @@
 
         <!-- Logout -->
         <div class="p-5 border-t border-primaryLight">
-            <a href="{{ route('logout') }}" class="flex items-center text-blue-100 hover:text-white">
+            <a href="#" class="flex items-center text-blue-100 hover:text-white">
                 <i class="fas fa-sign-out-alt mr-3"></i>
                 <span>Logout</span>
             </a>
@@ -212,9 +209,9 @@
                     <div class="relative">
                         <button class="flex items-center focus:outline-none">
                             <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold">
-                                {{ substr(auth()->user()->first_name, 0, 1) }}{{ substr(auth()->user()->last_name, 0, 1) }}
+                                JS
                             </div>
-                            <span class="ml-2 text-gray-700 hidden md:block">{{ auth()->user()->first_name }}</span>
+                            <span class="ml-2 text-gray-700 hidden md:block">John</span>
                         </button>
                     </div>
                 </div>
@@ -227,8 +224,8 @@
             <div class="bg-gradient-to-r from-primary to-primaryDark text-white rounded-xl p-6 mb-6 card-shadow">
                 <div class="flex flex-col md:flex-row items-center justify-between">
                     <div>
-                        <h2 class="text-2xl font-bold">Welcome, {{ auth()->user()->first_name }}!</h2>
-                        <p class="mt-2">You have <span class="font-bold">0 upcoming appointments</span>.</p>
+                        <h2 class="text-2xl font-bold">Welcome, John!</h2>
+                        <p class="mt-2">You have <span class="font-bold">3 upcoming appointments</span>.</p>
                     </div>
                     <div class="mt-4 md:mt-0">
                         <a href="#" class="bg-white text-primary px-4 py-2 rounded-lg font-semibold hover:bg-blue-50 transition duration-200">
@@ -247,7 +244,7 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-gray-500 text-sm">Upcoming Appointments</p>
-                            <h3 class="text-2xl font-bold">0</h3>
+                            <h3 class="text-2xl font-bold">3</h3>
                         </div>
                     </div>
                 </div>
@@ -259,7 +256,7 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-gray-500 text-sm">Doctors Visited</p>
-                            <h3 class="text-2xl font-bold">0</h3>
+                            <h3 class="text-2xl font-bold">5</h3>
                         </div>
                     </div>
                 </div>
@@ -271,7 +268,7 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-gray-500 text-sm">Pending Appointments</p>
-                            <h3 class="text-2xl font-bold">0</h3>
+                            <h3 class="text-2xl font-bold">1</h3>
                         </div>
                     </div>
                 </div>
@@ -283,7 +280,7 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-gray-500 text-sm">Total Appointments</p>
-                            <h3 class="text-2xl font-bold">0</h3>
+                            <h3 class="text-2xl font-bold">12</h3>
                         </div>
                     </div>
                 </div>
@@ -298,6 +295,24 @@
                     </div>
 
                     <div class="space-y-4">
+                        <div class="flex items-center justify-between p-3 border border-gray-100 rounded-lg hover:bg-blue-50 transition duration-150">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 text-primary flex items-center justify-center">
+                                    <i class="fas fa-user-md"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="font-medium">Dr. Sarah Johnson</p>
+                                    <p class="text-xs text-gray-500">Routine Checkup</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-medium">10:00 AM</p>
+                                <p class="text-xs text-gray-500">Oct 15, 2023</p>
+                                <span class="appointment-status status-confirmed mt-1 inline-block">
+                                    Confirmed
+                                </span>
+                            </div>
+                        </div>
 
                         <div class="flex items-center justify-between p-3 border border-gray-100 rounded-lg hover:bg-blue-50 transition duration-150">
                             <div class="flex items-center">
@@ -305,24 +320,37 @@
                                     <i class="fas fa-user-md"></i>
                                 </div>
                                 <div class="ml-3">
-                                    <p class="font-medium">Dr.Baby Allan </p>
-                                    <p class="text-xs text-gray-500">Appointment details here</p>
+                                    <p class="font-medium">Dr. Michael Chen</p>
+                                    <p class="text-xs text-gray-500">Dental Cleaning</p>
                                 </div>
                             </div>
                             <div class="text-right">
-                                <p class="font-medium">something</p>
-                                <p class="text-xs text-gray-500">something date</p>
-                                <span class="appointment-status status-mt-1 inline-block">
-                                    something apointment
+                                <p class="font-medium">2:30 PM</p>
+                                <p class="text-xs text-gray-500">Oct 18, 2023</p>
+                                <span class="appointment-status status-confirmed mt-1 inline-block">
+                                    Confirmed
                                 </span>
                             </div>
                         </div>
 
-                        <div class="text-center py-4 text-gray-500">
-                            <i class="fas fa-calendar-times text-3xl mb-2"></i>
-                            <p>No upcoming appointments</p>
+                        <div class="flex items-center justify-between p-3 border border-gray-100 rounded-lg hover:bg-blue-50 transition duration-150">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 text-primary flex items-center justify-center">
+                                    <i class="fas fa-user-md"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="font-medium">Dr. Emily Williams</p>
+                                    <p class="text-xs text-gray-500">Consultation</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-medium">11:15 AM</p>
+                                <p class="text-xs text-gray-500">Oct 22, 2023</p>
+                                <span class="appointment-status status-pending mt-1 inline-block">
+                                    Pending
+                                </span>
+                            </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -334,15 +362,14 @@
                     </div>
 
                     <div class="space-y-4">
-
                         <div class="flex items-center justify-between p-3 border border-gray-100 rounded-lg hover:bg-blue-50 transition duration-150">
                             <div class="flex items-center">
                                 <div class="w-10 h-10 rounded-full bg-blue-100 text-primary flex items-center justify-center">
                                     <i class="fas fa-user-md"></i>
                                 </div>
                                 <div class="ml-3">
-                                    <p class="font-medium">Dr. Allankalema</p>
-                                    <p class="text-xs text-gray-500">yesterday</p>
+                                    <p class="font-medium">Dr. Robert Brown</p>
+                                    <p class="text-xs text-gray-500">Last visit: 2 weeks ago</p>
                                 </div>
                             </div>
                             <a href="#" class="text-primary hover:text-primaryDark">
@@ -350,6 +377,35 @@
                             </a>
                         </div>
 
+                        <div class="flex items-center justify-between p-3 border border-gray-100 rounded-lg hover:bg-blue-50 transition duration-150">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 text-primary flex items-center justify-center">
+                                    <i class="fas fa-user-md"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="font-medium">Dr. Lisa Anderson</p>
+                                    <p class="text-xs text-gray-500">Last visit: 1 month ago</p>
+                                </div>
+                            </div>
+                            <a href="#" class="text-primary hover:text-primaryDark">
+                                <i class="fas fa-calendar-plus"></i>
+                            </a>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 border border-gray-100 rounded-lg hover:bg-blue-50 transition duration-150">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 text-primary flex items-center justify-center">
+                                    <i class="fas fa-user-md"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="font-medium">Dr. James Wilson</p>
+                                    <p class="text-xs text-gray-500">Last visit: 3 months ago</p>
+                                </div>
+                            </div>
+                            <a href="#" class="text-primary hover:text-primaryDark">
+                                <i class="fas fa-calendar-plus"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -405,4 +461,3 @@
     </script>
 </body>
 </html>
-@endsection
