@@ -59,11 +59,14 @@
                 <a href="#" class="text-gray-700 hover:text-primary transition">Contact</a>
             </div>
 
+            @guest
             <div class="flex space-x-4">
                 <a href="{{ route('login') }}" class="bg-white text-primary border border-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition">Sign In</a>
 
                 <a href="{{ route('register') }}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-dark transition">Sign Up</a>
             </div>
+            @endguest
+
         </div>
     </header>
 

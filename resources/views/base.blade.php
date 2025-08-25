@@ -15,22 +15,23 @@
                     colors: {
                         primary: '#3B82F6',
                         primaryDark: '#2563EB',
-                        dark: '#1E40AF'
+                        dark: '#1E40AF',
+                        sidebarBlue: '#1E40AF'
                     }
                 }
             }
         }
     </script>
     <style>
-        .sidebar {
+        .mobile-sidebar {
             transform: translateX(-100%);
             transition: transform 0.3s ease-in-out;
         }
-        .sidebar.open {
+        .mobile-sidebar.open {
             transform: translateX(0);
         }
         @media (min-width: 768px) {
-            .sidebar {
+            .mobile-sidebar {
                 transform: translateX(0);
             }
         }
@@ -41,14 +42,13 @@
     <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <!-- Logo -->
-            <div class="flex items-center">
+            <a href="{{ url('/') }}" class="flex items-center">
                 <i class="fas fa-stethoscope text-primary text-2xl mr-2"></i>
                 <span class="text-xl font-bold text-primary">MedBook</span>
-            </div>
+            </a>
 
             <!-- Desktop Navigation (visible on medium screens and up) -->
             <div class="hidden md:flex space-x-8">
-                <a href="#" class="text-gray-700 hover:text-primary transition">Home</a>
                 <!-- Show these only to guests -->
                 @guest
                 <a href="#" class="text-gray-700 hover:text-primary transition">Doctors</a>
@@ -86,47 +86,39 @@
                 <i class="fas fa-bars text-xl"></i>
             </button>
             @endauth
-
-    
         </div>
     </header>
 
     <div class="flex flex-1">
         <!-- Sidebar for large screens (always visible for logged in users) -->
         @auth
-        <div class="sidebar hidden md:block md:relative md:w-64 bg-white shadow-lg z-30">
-            <div class="p-4 border-b">
-                <div class="flex items-center">
-                    <i class="fas fa-stethoscope text-primary text-2xl mr-2"></i>
-                    <span class="text-xl font-bold text-primary">MedBook</span>
-                </div>
-            </div>
-            <nav class="p-4 overflow-y-auto" style="height: calc(100vh - 80px);">
-                <ul class="space-y-2">
-                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-home mr-2"></i>Dashboard</a></li>
-                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-calendar-check mr-2"></i>Appointments</a></li>
+        <div class="hidden md:block w-72 bg-sidebarBlue text-white z-30">
+            <nav class="p-4 overflow-y-auto h-screen sticky top-0">
+                <ul class="space-y-2 mt-4">
+                    <li><a href="#" class="block py-3 px-4 text-white hover:bg-blue-700 rounded transition"><i class="fas fa-home mr-3"></i>Dashboard</a></li>
+                    <li><a href="#" class="block py-3 px-4 text-white hover:bg-blue-700 rounded transition"><i class="fas fa-calendar-check mr-3"></i>Appointments</a></li>
 
                     <!-- Doctor-only menu items -->
                     @if(auth()->user()->role === 'doctor')
-                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-user-md mr-2"></i>Doctors</a></li>
-                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-chart-line mr-2"></i>Statistics</a></li>
-                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-users mr-2"></i>Patients</a></li>
+                    <li><a href="#" class="block py-3 px-4 text-white hover:bg-blue-700 rounded transition"><i class="fas fa-user-md mr-3"></i>Doctors</a></li>
+                    <li><a href="#" class="block py-3 px-4 text-white hover:bg-blue-700 rounded transition"><i class="fas fa-chart-line mr-3"></i>Statistics</a></li>
+                    <li><a href="#" class="block py-3 px-4 text-white hover:bg-blue-700 rounded transition"><i class="fas fa-users mr-3"></i>Patients</a></li>
                     @endif
 
-                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-prescription mr-2"></i>Prescriptions</a></li>
-                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-file-medical mr-2"></i>Records</a></li>
+                    <li><a href="#" class="block py-3 px-4 text-white hover:bg-blue-700 rounded transition"><i class="fas fa-prescription mr-3"></i>Prescriptions</a></li>
+                    <li><a href="#" class="block py-3 px-4 text-white hover:bg-blue-700 rounded transition"><i class="fas fa-file-medical mr-3"></i>Records</a></li>
                     <li class="relative">
-                        <button id="desktopProfileSubmenuButton" class="w-full text-left py-2 px-4 text-gray-700 hover:bg-gray-100 rounded flex justify-between items-center">
-                            <span><i class="fas fa-user mr-2"></i>Profile</span>
+                        <button id="desktopProfileSubmenuButton" class="w-full text-left py-3 px-4 text-white hover:bg-blue-700 rounded transition flex justify-between items-center">
+                            <span><i class="fas fa-user mr-3"></i>Profile</span>
                             <i class="fas fa-chevron-down text-xs"></i>
                         </button>
-                        <ul id="desktopProfileSubmenu" class="pl-6 mt-1 hidden">
-                            <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded">View Profile</a></li>
-                            <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded">Edit Profile</a></li>
-                            <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded">Change Password</a></li>
+                        <ul id="desktopProfileSubmenu" class="pl-10 mt-1 hidden space-y-2">
+                            <li><a href="#" class="block py-2 px-4 text-white hover:bg-blue-700 rounded transition">View Profile</a></li>
+                            <li><a href="#" class="block py-2 px-4 text-white hover:bg-blue-700 rounded transition">Edit Profile</a></li>
+                            <li><a href="#" class="block py-2 px-4 text-white hover:bg-blue-700 rounded transition">Change Password</a></li>
                         </ul>
                     </li>
-                    <li><a href="#" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a></li>
+                    <li><a href="#" class="block py-3 px-4 text-white hover:bg-blue-700 rounded transition"><i class="fas fa-sign-out-alt mr-3"></i>Logout</a></li>
                 </ul>
             </nav>
         </div>
@@ -134,7 +126,7 @@
 
         <!-- Mobile Sidebar -->
         @auth
-        <div class="sidebar fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-40 md:hidden">
+        <div class="mobile-sidebar fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-40 md:hidden">
             <div class="p-4 border-b">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
@@ -179,11 +171,27 @@
         @endauth
 
         <!-- Main Content Area -->
-        <main class="flex-grow container mx-auto px-4 py-8 @auth md:ml-64 @endauth">
-            <!-- Content block that can be overridden by extending templates -->
-            @yield('content')
+        <main class="flex-grow @auth md:w-[calc(100%-288px)] @endauth">
+            <div class="container mx-auto px-4 py-6">
+                <!-- Content block that can be overridden by extending templates -->
+                @yield('content')
 
+                <!-- Default content if not overridden -->
+                <div id="defaultContent" class="text-center py-12">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-8">Welcome to MedBook</h1>
+                    <p class="text-gray-600 max-w-2xl mx-auto mb-10">
+                        MedBook simplifies healthcare appointment booking for both doctors and patients.
+                        Book appointments, manage your health records, and connect with healthcare professionals seamlessly.
+                    </p>
 
+                    <!-- Show call to action for guests -->
+                    @guest
+                    <div class="mt-8 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="{{ route('login') }}" class="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primaryDark transition">Sign In</a>
+                        <a href="{{ route('register') }}" class="bg-white text-primary border border-primary px-6 py-3 rounded-lg hover:bg-primary hover:text-white transition">Sign Up</a>
+                    </div>
+                    @endguest
+                </div>
             </div>
         </main>
     </div>
@@ -263,7 +271,6 @@
             const profileDropdownContainer = document.getElementById('profileDropdownContainer');
             const mobileMenuButton = document.getElementById('mobileMenuButton');
             const closeSidebar = document.getElementById('closeSidebar');
-            const sidebar = document.querySelector('.sidebar');
             const sidebarOverlay = document.getElementById('sidebarOverlay');
             const profileDropdownButton = document.getElementById('profileDropdownButton');
             const profileDropdown = document.getElementById('profileDropdown');
@@ -291,21 +298,21 @@
             // Mobile sidebar toggle
             if (mobileMenuButton) {
                 mobileMenuButton.addEventListener('click', function() {
-                    document.querySelector('.sidebar.fixed').classList.add('open');
+                    document.querySelector('.mobile-sidebar').classList.add('open');
                     sidebarOverlay.classList.remove('hidden');
                 });
             }
 
             if (closeSidebar) {
                 closeSidebar.addEventListener('click', function() {
-                    document.querySelector('.sidebar.fixed').classList.remove('open');
+                    document.querySelector('.mobile-sidebar').classList.remove('open');
                     sidebarOverlay.classList.add('hidden');
                 });
             }
 
             if (sidebarOverlay) {
                 sidebarOverlay.addEventListener('click', function() {
-                    document.querySelector('.sidebar.fixed').classList.remove('open');
+                    document.querySelector('.mobile-sidebar').classList.remove('open');
                     sidebarOverlay.classList.add('hidden');
                 });
             }
