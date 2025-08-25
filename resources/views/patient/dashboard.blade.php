@@ -1,3 +1,7 @@
+@extends('base')
+
+@section('content')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,43 +31,11 @@
         body {
             font-family: 'Poppins', sans-serif;
         }
-
-        .sidebar {
-            width: 250px;
-            transition: all 0.3s ease;
-        }
-
         .main-content {
             transition: all 0.3s ease;
         }
 
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-                position: fixed;
-                z-index: 50;
-                height: 100vh;
-            }
 
-            .sidebar.active {
-                transform: translateX(0);
-            }
-
-            .overlay {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: rgba(0, 0, 0, 0.5);
-                z-index: 40;
-            }
-
-            .overlay.active {
-                display: block;
-            }
-        }
 
         .card-shadow {
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -121,103 +93,9 @@
     <!-- Mobile overlay -->
     <div class="overlay" id="overlay"></div>
 
-    <!-- Sidebar -->
-    <div class="sidebar bg-primary text-white fixed md:relative flex flex-col flex-shrink-0">
-        <!-- Logo -->
-        <div class="p-5 border-b border-primaryLight">
-            <div class="flex items-center">
-                <i class="fas fa-heartbeat text-2xl mr-3"></i>
-                <span class="text-xl font-bold">MedBooker</span>
-            </div>
-        </div>
-
-        <!-- User Profile -->
-        <div class="p-5 border-b border-primaryLight flex items-center">
-            <div class="w-12 h-12 rounded-full bg-white text-primary flex items-center justify-center font-bold text-lg">
-                JS
-            </div>
-            <div class="ml-3">
-                <p class="font-semibold">John Smith</p>
-                <p class="text-xs text-blue-100">Patient</p>
-            </div>
-        </div>
-
-        <!-- Navigation -->
-        <div class="flex-1 p-2">
-            <a href="#" class="flex items-center p-3 rounded-lg bg-primaryDark text-white mb-1">
-                <i class="fas fa-home mr-3"></i>
-                <span>Dashboard</span>
-            </a>
-            <a href="#" class="flex items-center p-3 rounded-lg text-blue-100 hover:bg-primaryDark hover:text-white mb-1">
-                <i class="fas fa-calendar-check mr-3"></i>
-                <span>My Appointments</span>
-            </a>
-            <a href="#" class="flex items-center p-3 rounded-lg text-blue-100 hover:bg-primaryDark hover:text-white mb-1">
-                <i class="fas fa-user-md mr-3"></i>
-                <span>Doctors</span>
-            </a>
-            <a href="#" class="flex items-center p-3 rounded-lg text-blue-100 hover:bg-primaryDark hover:text-white mb-1">
-                <i class="fas fa-prescription mr-3"></i>
-                <span>Prescriptions</span>
-            </a>
-            <a href="#" class="flex items-center p-3 rounded-lg text-blue-100 hover:bg-primaryDark hover:text-white mb-1">
-                <i class="fas fa-file-medical mr-3"></i>
-                <span>Medical Records</span>
-            </a>
-            <a href="#" class="flex items-center p-3 rounded-lg text-blue-100 hover:bg-primaryDark hover:text-white mb-1">
-                <i class="fas fa-cog mr-3"></i>
-                <span>Settings</span>
-            </a>
-        </div>
-
-        <!-- Logout -->
-        <div class="p-5 border-t border-primaryLight">
-            <a href="#" class="flex items-center text-blue-100 hover:text-white">
-                <i class="fas fa-sign-out-alt mr-3"></i>
-                <span>Logout</span>
-            </a>
-        </div>
-    </div>
 
     <!-- Main Content -->
     <div class="main-content flex-1 flex flex-col overflow-hidden">
-        <!-- Top Header -->
-        <header class="bg-white border-b border-gray-200">
-            <div class="flex items-center justify-between p-4">
-                <div class="flex items-center">
-                    <button id="menu-toggle" class="text-gray-500 focus:outline-none md:hidden">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                    <h1 class="ml-2 text-xl font-semibold">Patient Dashboard</h1>
-                </div>
-
-                <div class="flex items-center">
-                    <!-- Notifications -->
-                    <div class="relative mr-4">
-                        <button class="text-gray-500 focus:outline-none">
-                            <i class="fas fa-bell text-xl"></i>
-                            <span class="notification-dot">2</span>
-                        </button>
-                    </div>
-
-                    <!-- New Appointment Button -->
-                    <a href="#" class="bg-primary hover:bg-primaryDark text-white px-4 py-2 rounded-lg font-medium mr-4 hidden md:block">
-                        <i class="fas fa-plus-circle mr-2"></i> New Appointment
-                    </a>
-
-                    <!-- User Menu -->
-                    <div class="relative">
-                        <button class="flex items-center focus:outline-none">
-                            <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold">
-                                JS
-                            </div>
-                            <span class="ml-2 text-gray-700 hidden md:block">John</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </header>
-
         <!-- Main Content -->
         <main class="flex-1 overflow-y-auto p-4 md:p-6 bg-lightBg">
             <!-- Welcome Banner -->
@@ -445,19 +323,6 @@
             </div>
         </main>
     </div>
-
-    <script>
-        // Mobile menu toggle
-        document.getElementById('menu-toggle').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.toggle('active');
-            document.getElementById('overlay').classList.toggle('active');
-        });
-
-        // Close sidebar when clicking overlay
-        document.getElementById('overlay').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.remove('active');
-            document.getElementById('overlay').classList.remove('active');
-        });
-    </script>
 </body>
 </html>
+@endsection

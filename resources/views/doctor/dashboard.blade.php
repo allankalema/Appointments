@@ -97,65 +97,6 @@
 <body class="bg-gray-100 flex h-screen">
     <!-- Mobile overlay -->
     <div class="overlay" id="overlay"></div>
-
-    <!-- Sidebar -->
-    <div class="sidebar bg-primary text-white fixed md:relative flex flex-col flex-shrink-0">
-        <!-- Logo -->
-        <div class="p-5 border-b border-primaryLight">
-            <div class="flex items-center">
-                <i class="fas fa-user-md text-2xl mr-3"></i>
-                <span class="text-xl font-bold">MedBooker</span>
-            </div>
-        </div>
-
-        <!-- User Profile -->
-        <div class="p-5 border-b border-primaryLight flex items-center">
-            <div class="w-12 h-12 rounded-full bg-white text-primary flex items-center justify-center font-bold text-lg">
-                {{ substr(auth()->user()->first_name, 0, 1) }}{{ substr(auth()->user()->last_name, 0, 1) }}
-            </div>
-            <div class="ml-3">
-                <p class="font-semibold">Dr. {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</p>
-                <p class="text-xs text-blue-100">Doctor</p>
-            </div>
-        </div>
-
-        <!-- Navigation -->
-        <div class="flex-1 p-2">
-            <a href="#" class="flex items-center p-3 rounded-lg bg-primaryDark text-white mb-1">
-                <i class="fas fa-home mr-3"></i>
-                <span>Dashboard</span>
-            </a>
-            <a href="#" class="flex items-center p-3 rounded-lg text-blue-100 hover:bg-primaryDark hover:text-white mb-1">
-                <i class="fas fa-calendar-check mr-3"></i>
-                <span>Appointments</span>
-            </a>
-            <a href="#" class="flex items-center p-3 rounded-lg text-blue-100 hover:bg-primaryDark hover:text-white mb-1">
-                <i class="fas fa-users mr-3"></i>
-                <span>Patients</span>
-            </a>
-            <a href="#" class="flex items-center p-3 rounded-lg text-blue-100 hover:bg-primaryDark hover:text-white mb-1">
-                <i class="fas fa-clock mr-3"></i>
-                <span>Schedule</span>
-            </a>
-            <a href="#" class="flex items-center p-3 rounded-lg text-blue-100 hover:bg-primaryDark hover:text-white mb-1">
-                <i class="fas fa-chart-line mr-3"></i>
-                <span>Statistics</span>
-            </a>
-            <a href="#" class="flex items-center p-3 rounded-lg text-blue-100 hover:bg-primaryDark hover:text-white mb-1">
-                <i class="fas fa-cog mr-3"></i>
-                <span>Settings</span>
-            </a>
-        </div>
-
-        <!-- Logout -->
-        <div class="p-5 border-t border-primaryLight">
-            <a href="#" class="flex items-center text-blue-100 hover:text-white">
-                <i class="fas fa-sign-out-alt mr-3"></i>
-                <span>Logout</span>
-            </a>
-        </div>
-    </div>
-
     <!-- Main Content -->
     <div class="main-content flex-1 flex flex-col overflow-hidden">
         <!-- Top Header -->
@@ -406,19 +347,6 @@
         </main>
     </div>
 
-    <script>
-        // Mobile menu toggle
-        document.getElementById('menu-toggle').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.toggle('active');
-            document.getElementById('overlay').classList.toggle('active');
-        });
-
-        // Close sidebar when clicking overlay
-        document.getElementById('overlay').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.remove('active');
-            document.getElementById('overlay').classList.remove('active');
-        });
-    </script>
 </body>
 </html>
 @endsection
